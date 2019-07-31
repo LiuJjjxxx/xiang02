@@ -5,11 +5,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<title>Document</title>
-	<link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
-	<link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
 </head>
 <body>
-	<div class="king-widget9" style="min-width:900px;">
+	<div class="king-widget9" style="min-width:900px;background: rgba(0,0,0,0);color: black;">
     <div class="king-widget9-content">
         <div class="clearfix">
             <div class="king-text-wrap">
@@ -93,7 +112,355 @@
             </div>
         </div>
     </div>
-    
 </div>
+
+<div class="" style="padding-top: 20px;">
+        <div class="king-container clearfix">
+            <div class="container-fluid mb0 ">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div style="height: 300px; position: relative;" id="chart_1564553056973" class="king-chart-box chart-line  k-chart" data-role="chart" ></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="height: 300px; position: relative;" id="chart_1564553058378" class="king-chart-box chart-line  k-chart" data-role="chart"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="height: 300px; position: relative;" id="chart_1564553060133" class="king-chart-box chart-line  k-chart" data-role="chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="center-block" style="text-align: center; font-family: '楷体';"><h1>利用率实时排行</h1></div>
+   <div class="king-container clearfix">
+            <div class="container-fluid mb0 ">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555802852">
+                            <div class="king-block-header king-danger">
+                                <h3 class="king-block-title pt10 pb10">
+                                    <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                            </div>
+                            <div class="ranger-wrapper">
+                                <table class="table mb0 pr15 ranger-header-box">
+                                    <thead>
+                                        <tr>
+                                            <th class="p15" style="width:20%;">排名</th>
+                                            <th style="width:40%;">用户名</th>
+                                            <th>成绩</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div style="height:203px; overflow: auto;" class="ranger-box">
+                                    <table class="table mb0">
+                                        <tbody id="">
+                                            <tr>
+                                                <td class="p15" style="width:20%;">1</td>
+                                                <td style="width:40%;">项目一</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">2</td>
+                                                <td style="width:40%;">项目二</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">3</td>
+                                                <td style="width:40%;">项目三</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">4</td>
+                                                <td style="width:40%;">项目四</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">5</td>
+                                                <td style="width:40%;">项目五</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">6</td>
+                                                <td style="width:40%;">项目六项目六项目六</td>
+                                                <td>20</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 设置面板Start -->
+                        <template id="list2_header_tpl">
+                            <tr>
+                                <th class="p15" style="width:20%;">#index#</th>
+                                <th style="width:40%;">#name#</th>
+                                <th>#score#</th>
+                            </tr>
+                        </template>
+                        <template id="list2_tpl">
+                            <tr>
+                                <td class="p15" style="width:20%;">#index#</td>
+                                <td style="width:40%;">#name#</td>
+                                <td>#score#</td>
+                            </tr>
+                        </template>
+                        <template id="list2_nodata_tpl">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="bk-nodata-tip">暂时没有数据</p>
+                                </td>
+                            </tr>
+                        </template>
+                        <!-- 设置面板End -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555803862">
+                            <div class="king-block-header king-danger">
+                                <h3 class="king-block-title pt10 pb10">
+                                    <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                            </div>
+                            <div class="ranger-wrapper">
+                                <table class="table mb0 pr15 ranger-header-box">
+                                    <thead>
+                                        <tr>
+                                            <th class="p15" style="width:20%;">排名</th>
+                                            <th style="width:40%;">用户名</th>
+                                            <th>成绩</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div style="height:203px; overflow: auto;" class="ranger-box">
+                                    <table class="table mb0">
+                                        <tbody id="">
+                                            <tr>
+                                                <td class="p15" style="width:20%;">1</td>
+                                                <td style="width:40%;">项目一</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">2</td>
+                                                <td style="width:40%;">项目二</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">3</td>
+                                                <td style="width:40%;">项目三</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">4</td>
+                                                <td style="width:40%;">项目四</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">5</td>
+                                                <td style="width:40%;">项目五</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">6</td>
+                                                <td style="width:40%;">项目六项目六项目六</td>
+                                                <td>20</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 设置面板Start -->
+                        <template id="list2_header_tpl">
+                            <tr>
+                                <th class="p15" style="width:20%;">#index#</th>
+                                <th style="width:40%;">#name#</th>
+                                <th>#score#</th>
+                            </tr>
+                        </template>
+                        <template id="list2_tpl">
+                            <tr>
+                                <td class="p15" style="width:20%;">#index#</td>
+                                <td style="width:40%;">#name#</td>
+                                <td>#score#</td>
+                            </tr>
+                        </template>
+                        <template id="list2_nodata_tpl">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="bk-nodata-tip">暂时没有数据</p>
+                                </td>
+                            </tr>
+                        </template>
+                        <!-- 设置面板End -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555805283">
+                            <div class="king-block-header king-danger">
+                                <h3 class="king-block-title pt10 pb10">
+                                    <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                            </div>
+                            <div class="ranger-wrapper">
+                                <table class="table mb0 pr15 ranger-header-box">
+                                    <thead>
+                                        <tr>
+                                            <th class="p15" style="width:20%;">排名</th>
+                                            <th style="width:40%;">用户名</th>
+                                            <th>成绩</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div style="height:203px; overflow: auto;" class="ranger-box">
+                                    <table class="table mb0">
+                                        <tbody id="">
+                                            <tr>
+                                                <td class="p15" style="width:20%;">1</td>
+                                                <td style="width:40%;">项目一</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">2</td>
+                                                <td style="width:40%;">项目二</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">3</td>
+                                                <td style="width:40%;">项目三</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">4</td>
+                                                <td style="width:40%;">项目四</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">5</td>
+                                                <td style="width:40%;">项目五</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p15" style="width:20%;">6</td>
+                                                <td style="width:40%;">项目六项目六项目六</td>
+                                                <td>20</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 设置面板Start -->
+                        <template id="list2_header_tpl">
+                            <tr>
+                                <th class="p15" style="width:20%;">#index#</th>
+                                <th style="width:40%;">#name#</th>
+                                <th>#score#</th>
+                            </tr>
+                        </template>
+                        <template id="list2_tpl">
+                            <tr>
+                                <td class="p15" style="width:20%;">#index#</td>
+                                <td style="width:40%;">#name#</td>
+                                <td>#score#</td>
+                            </tr>
+                        </template>
+                        <template id="list2_nodata_tpl">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="bk-nodata-tip">暂时没有数据</p>
+                                </td>
+                            </tr>
+                        </template>
+                        <!-- 设置面板End -->
+                    </div>
+                </div>
+            </div>
+ <script>
+        // 创建图表
+        function createKendoLineChart(conf){
+            $(conf.selector).kendoChart({
+                transitions: true,
+                legend: {
+                   position: "bottom"
+                },
+				title: {
+  					text: "xxxx实时"
+				},
+                theme : 'bootstrap',
+                seriesDefaults: {
+                    type: 'line',
+                    style: "smooth",
+                    markers: {
+                        visible: false
+                    }
+                },
+                series: conf.data.series,
+                categoryAxis: {
+                    majorGridLines : {
+                        visible: false
+                    },
+                    categories: conf.data.categories,
+                    labels: {
+                        rotation: "auto"
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    template: "#= category # #= value #"
+                }
+            });
+            //重新绘制
+            $(window).on('resize',function(){
+                var chart = $(conf.selector).data("kendoChart");
+                chart.redraw();
+            });
+        }
+        
+        function initKendoLineChart(conf){
+            // 异步请求后台数据
+            $.ajax({
+                url: conf.url,
+                type: 'GET',
+                dataType: conf.dataType,
+                success: function(res){
+                    //获取数据成功
+                    if (res.result){
+                        var data = {
+                            series: res.data.series,
+                            categories: res.data.categories
+                        };
+                        createKendoLineChart({
+                            selector: conf.container, // 图表容器
+                            data: data // 图表数据
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+        $(function(){
+            initKendoLineChart({
+                url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_line/demo.json',
+                dataType: 'json',
+                container: '#chart_1564553056973'
+            });
+        });
+    </script>
+    <script>
+        $(function(){
+            initKendoLineChart({
+                url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_line/demo.json',
+                dataType: 'json',
+                container: '#chart_1564553058378'
+            });
+        });
+    </script>
+    <script>
+        $(function(){
+            initKendoLineChart({
+                url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_line/demo.json',
+                dataType: 'json',
+                container: '#chart_1564553060133'
+            });
+        });
+    </script>
 </body>
+
 </html>
