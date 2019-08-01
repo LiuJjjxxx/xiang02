@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+</head>
+
+<body class="bg-white" data-bg-color="bg-white">
+    <div class="king-page-box">
+        <div class="king-container clearfix">
+            <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564623711311">
+                <div class="king-block-header king-info">
+                    <h3 class="king-block-title pt10 pb10">
+                        <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                </div>
+                <div class="ranger-wrapper">
+                    <table class="table mb0 pr15 ranger-header-box">
+                        <thead>
+                        </thead>
+                    </table>
+                    <div style="height:203px; overflow: auto;" class="ranger-box">
+                        <table class="table mb0">
+                            <tbody id="">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- 设置面板Start -->
+            <template id="list2_header_tpl">
+                <tr>
+                    <th class="p15" style="width:20%;">#count#</th>
+                    <th style="width:40%;">#count#</th>
+                    <th>#count#</th>
+                </tr>
+            </template>
+            <template id="list2_tpl">
+                <tr>
+                    <td class="p15" style="width:20%;">#index#</td>
+                    <td style="width:40%;">#name#</td>
+                    <td>#score#</td>
+                </tr>
+            </template>
+            <template id="list2_nodata_tpl">
+                <tr>
+                    <td colspan="3">
+                        <p class="bk-nodata-tip">暂时没有数据</p>
+                    </td>
+                </tr>
+            </template>
+            <!-- 设置面板End -->
+        </div>
+    </div>
+    <script>
+        function renderTpl(str, cfg) {
+                var re = /(#(.+?)#)/g;
+
+                return str.replace(re, function() {
+                    var val = cfg[arguments[2]]+'';
+                    if(typeof val == 'undefined') {
+                        val = '';
+                    }
+                    return val;
+                });
+            }
+
+            function initList2(conf){
+                // 异步请求后台数据
+                $.ajax({
+                    url: conf.url,
+                    type: 'GET',
+                    dataType: conf.dataType,
+                    success: function(res){
+                    //获取数据成功
+                        if (res.code == 0){
+                            var headerTpl =  $('#list2_header_tpl').html();
+                            $(conf.container).find('.ranger-header-box thead').html(renderTpl(headerTpl,res.data.count));
+                        }
+                    }
+                });
+            }
+    </script>
+    <script>
+        initList2({
+                url: 'http://paas.liu.com/api/c/compapi/v2/cc/search_host/?bk_app_code=xiang02&bk_app_secret=c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4&bk_username=admin',
+                dataType: 'json',
+                container: '#list_1564623711311'
+            });
+    </script>
+</body>
+
+</html>

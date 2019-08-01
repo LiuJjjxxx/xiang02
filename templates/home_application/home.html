@@ -27,7 +27,7 @@
     <!-- 数据埋点统计 -->
     <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
 </head>
-<body>
+<body bgcolor="#fa8072">
 	<div class="king-widget9" style="min-width:900px;background: rgba(0,0,0,0);color: black;">
     <div class="king-widget9-content">
         <div class="clearfix">
@@ -154,36 +154,6 @@
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
                                     <table class="table mb0">
                                         <tbody id="">
-                                            <tr>
-                                                <td class="p15" style="width:20%;">1</td>
-                                                <td style="width:40%;">项目一</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">2</td>
-                                                <td style="width:40%;">项目二</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">3</td>
-                                                <td style="width:40%;">项目三</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">4</td>
-                                                <td style="width:40%;">项目四</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">5</td>
-                                                <td style="width:40%;">项目五</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">6</td>
-                                                <td style="width:40%;">项目六项目六项目六</td>
-                                                <td>20</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -232,36 +202,6 @@
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
                                     <table class="table mb0">
                                         <tbody id="">
-                                            <tr>
-                                                <td class="p15" style="width:20%;">1</td>
-                                                <td style="width:40%;">项目一</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">2</td>
-                                                <td style="width:40%;">项目二</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">3</td>
-                                                <td style="width:40%;">项目三</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">4</td>
-                                                <td style="width:40%;">项目四</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">5</td>
-                                                <td style="width:40%;">项目五</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">6</td>
-                                                <td style="width:40%;">项目六项目六项目六</td>
-                                                <td>20</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -310,36 +250,6 @@
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
                                     <table class="table mb0">
                                         <tbody id="">
-                                            <tr>
-                                                <td class="p15" style="width:20%;">1</td>
-                                                <td style="width:40%;">项目一</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">2</td>
-                                                <td style="width:40%;">项目二</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">3</td>
-                                                <td style="width:40%;">项目三</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">4</td>
-                                                <td style="width:40%;">项目四</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">5</td>
-                                                <td style="width:40%;">项目五</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p15" style="width:20%;">6</td>
-                                                <td style="width:40%;">项目六项目六项目六</td>
-                                                <td>20</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -371,93 +281,40 @@
                     </div>
                 </div>
             </div>
- <script>
-        // 创建图表
-        function createKendoLineChart(conf){
-            $(conf.selector).kendoChart({
-                transitions: true,
-                legend: {
-                   position: "bottom"
-                },
-				title: {
-  					text: "xxxx实时"
-				},
-                theme : 'bootstrap',
-                seriesDefaults: {
-                    type: 'line',
-                    style: "smooth",
-                    markers: {
-                        visible: false
+   </div>
+    <script>
+ function renderTpl(str, cfg) {
+                var re = /(#(.+?)#)/g;
+
+                return str.replace(re, function() {
+                    var val = cfg[arguments[2]]+'';
+                    if(typeof val == 'undefined') {
+                        val = '';
                     }
-                },
-                series: conf.data.series,
-                categoryAxis: {
-                    majorGridLines : {
-                        visible: false
-                    },
-                    categories: conf.data.categories,
-                    labels: {
-                        rotation: "auto"
-                    }
-                },
-                tooltip: {
-                    visible: true,
-                    template: "#= category # #= value #"
-                }
-            });
-            //重新绘制
-            $(window).on('resize',function(){
-                var chart = $(conf.selector).data("kendoChart");
-                chart.redraw();
-            });
-        }
-        
-        function initKendoLineChart(conf){
-            // 异步请求后台数据
-            $.ajax({
-                url: conf.url,
-                type: 'GET',
-                dataType: conf.dataType,
-                success: function(res){
+                    return val;
+                });
+            }
+
+            function initIpsum(conf){
+                // 异步请求后台数据
+                $.ajax({
+                    url: conf.url,
+                    type: 'GET',
+                    dataType: conf.dataType,
+                    success: function(res){
                     //获取数据成功
-                    if (res.result){
-                        var data = {
-                            series: res.data.series,
-                            categories: res.data.categories
-                        };
-                        createKendoLineChart({
-                            selector: conf.container, // 图表容器
-                            data: data // 图表数据
-                        });
+                        if (res.code == 0){
+                            var count = res.data.count;
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
     </script>
     <script>
-        $(function(){
-            initKendoLineChart({
-                url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_line/demo.json',
-                dataType: 'json',
-                container: '#chart_1564553056973'
-            });
-        });
-    </script>
-    <script>
-        $(function(){
-            initKendoLineChart({
-                url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_line/demo.json',
-                dataType: 'json',
-                container: '#chart_1564553058378'
-            });
-        });
-    </script>
-    <script>
-        $(function(){
-            initKendoLineChart({
-                url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_line/demo.json',
-                dataType: 'json',
-                container: '#chart_1564553060133'
+        $(function () {
+            initIpsum({
+                url:'http://paas.liu.com/api/c/compapi/v2/cc/search_host/?bk_app_code=xiang02&bk_app_secret=c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4&bk_username=admin',
+                dataType:'json',
             });
         });
     </script>
