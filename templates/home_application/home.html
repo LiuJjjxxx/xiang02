@@ -15,6 +15,7 @@
     <!--蓝鲸提供的公用样式库 -->
     <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
     <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <link href="${STATIC_URL}css/local.css" rel="stylesheet">
     <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
     <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
@@ -26,18 +27,24 @@
     <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
     <!-- 数据埋点统计 -->
     <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <script>
+        var app_id ="${APP_ID}"
+        var site_url = "${SITE_URL}"
+        var static_url = "${STATIC_URL}"
+    </script>
+    <script src="${STATIC_URL}js/settings.js?v=${STATIC_VERSION}" type="text/javascript"></script>
 </head>
-<body bgcolor="#fa8072">
-	<div class="king-widget9" style="min-width:900px;background: rgba(0,0,0,0);color: black;">
-    <div class="king-widget9-content">
+<body>
+	<div class="king-widget9">
+    <div class="king-widget9-content one ">
         <div class="clearfix">
             <div class="king-text-wrap">
-                <h2>200台</h2>
+                <h2 id="count_server"></h2>
                 <div class="text-wrap">
                     <div class="text-wrap-left">
-                        <p>正常：198</p>
-                        <p>告警：1</p>
-                        <p>故障：1</p>
+                        <p id="normal_server">正常:</p>
+                        <p id="warn_sever">告警:</p>
+                        <p id="abnormal_server">故障:</p>
                     </div>
                     <div class="text-wrap-right">
                     </div>
@@ -45,28 +52,28 @@
             </div>
             <div class="king-icon-wrap">
                 <span class="king-widget-warning">
-                       <i class="fa fa-tasks"></i>
+                       <i class="fa fa-desktop"></i>
                    </span>
                 <h5>服务器状态</h5>
             </div>
         </div>
-        
+
     </div>
     <div class="king-widget9-content">
         <div class="clearfix">
             <div class="king-text-wrap">
-                <h2>123个</h2>
+                <h2 id="count_network_server"></h2>
                 <div class="text-wrap">
                     <div class="text-wrap-left">
-                        <p>正常：100</p>
-                        <p>告警：20</p>
-                        <p>故障：3</p>
+                        <p id="normal_network_server">正常：</p>
+                        <p id="warn_network_sever">告警：</p>
+                        <p id="abnormal_network_server">故障：</p>
                     </div>
                 </div>
             </div>
             <div class="king-icon-wrap">
                 <span class="king-widget-success">
-                       <i class="fa fa-puzzle-piece"></i>
+                       <i class="fa fa-wifi"></i>
                    </span>
                 <h5>网络设备</h5>
             </div>
@@ -113,7 +120,10 @@
         </div>
     </div>
 </div>
-
+<div style="padding-top: 20px;">
+<div  class="two" style="width: 100px; border-bottom: 5px red solid; display: inline; float: left;"></div>
+<div  class="three" style="width: 100px; border-bottom: 5px red solid; display: inline;float: right;" ></div>
+</div>
 <div class="" style="padding-top: 20px;">
         <div class="king-container clearfix">
             <div class="container-fluid mb0 ">
@@ -131,47 +141,44 @@
             </div>
         </div>
     </div>
-<div class="center-block" style="text-align: center; font-family: '楷体';"><h1>利用率实时排行</h1></div>
-   <div class="king-container clearfix">
+<div class="center-block" style="text-align: center; font-family: '楷体';color: white;"><h1>利用率实时排行</h1></div>
+   <div class="king-container clearfix four">
             <div class="container-fluid mb0 ">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555802852">
-                            <div class="king-block-header king-danger">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="wangluo_cpu">
+                            <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>网络设备CPU</h3>
                             </div>
                             <div class="ranger-wrapper">
-                                <table class="table mb0 pr15 ranger-header-box">
-                                    <thead>
-                                        <tr>
-                                            <th class="p15" style="width:20%;">排名</th>
-                                            <th style="width:40%;">用户名</th>
-                                            <th>成绩</th>
-                                        </tr>
+                                <table class="mb0 pr15 ranger-header-box color">
+                                    <thead class="font">
                                     </thead>
                                 </table>
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
-                                    <table class="table mb0">
+                                    <table class="font mb0" style="width: 100%;max-width: 100%">
                                         <tbody id="">
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <!-- 设置面板Start -->
+                    </div>
+                    <!-- 设置面板Start -->
                         <template id="list2_header_tpl">
                             <tr>
-                                <th class="p15" style="width:20%;">#index#</th>
-                                <th style="width:40%;">#name#</th>
-                                <th>#score#</th>
+                                <th class="p15">排名</th>
+                                <th >服务器IP</th>
+                                <th>利用率</th>
                             </tr>
                         </template>
-                        <template id="list2_tpl">
+
+                        <template id="list2_tpl" style="background: rgba(0,0,0,0)">
                             <tr>
                                 <td class="p15" style="width:20%;">#index#</td>
-                                <td style="width:40%;">#name#</td>
-                                <td>#score#</td>
+                                <td style="width:40%;">#ip#</td>
+                                <td>#value#%</td>
                             </tr>
                         </template>
                         <template id="list2_nodata_tpl">
@@ -182,21 +189,15 @@
                             </tr>
                         </template>
                         <!-- 设置面板End -->
-                    </div>
                     <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555803862">
-                            <div class="king-block-header king-danger">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="yewu_cpu">
+                            <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>业务系统CPU</h3>
                             </div>
                             <div class="ranger-wrapper">
                                 <table class="table mb0 pr15 ranger-header-box">
                                     <thead>
-                                        <tr>
-                                            <th class="p15" style="width:20%;">排名</th>
-                                            <th style="width:40%;">用户名</th>
-                                            <th>成绩</th>
-                                        </tr>
                                     </thead>
                                 </table>
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
@@ -208,17 +209,10 @@
                             </div>
                         </div>
                         <!-- 设置面板Start -->
-                        <template id="list2_header_tpl">
-                            <tr>
-                                <th class="p15" style="width:20%;">#index#</th>
-                                <th style="width:40%;">#name#</th>
-                                <th>#score#</th>
-                            </tr>
-                        </template>
                         <template id="list2_tpl">
                             <tr>
-                                <td class="p15" style="width:20%;">#index#</td>
-                                <td style="width:40%;">#name#</td>
+                                <td class="p15">#index#</td>
+                                <td>#name#</td>
                                 <td>#score#</td>
                             </tr>
                         </template>
@@ -233,18 +227,13 @@
                     </div>
                     <div class="col-md-4">
                         <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555805283">
-                            <div class="king-block-header king-danger">
+                            <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>排行榜</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>数据库CPU</h3>
                             </div>
                             <div class="ranger-wrapper">
                                 <table class="table mb0 pr15 ranger-header-box">
                                     <thead>
-                                        <tr>
-                                            <th class="p15" style="width:20%;">排名</th>
-                                            <th style="width:40%;">用户名</th>
-                                            <th>成绩</th>
-                                        </tr>
                                     </thead>
                                 </table>
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
@@ -255,69 +244,120 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- 设置面板Start -->
-                        <template id="list2_header_tpl">
-                            <tr>
-                                <th class="p15" style="width:20%;">#index#</th>
-                                <th style="width:40%;">#name#</th>
-                                <th>#score#</th>
-                            </tr>
-                        </template>
-                        <template id="list2_tpl">
-                            <tr>
-                                <td class="p15" style="width:20%;">#index#</td>
-                                <td style="width:40%;">#name#</td>
-                                <td>#score#</td>
-                            </tr>
-                        </template>
-                        <template id="list2_nodata_tpl">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="bk-nodata-tip">暂时没有数据</p>
-                                </td>
-                            </tr>
-                        </template>
-                        <!-- 设置面板End -->
                     </div>
                 </div>
             </div>
    </div>
-    <script>
- function renderTpl(str, cfg) {
-                var re = /(#(.+?)#)/g;
 
-                return str.replace(re, function() {
-                    var val = cfg[arguments[2]]+'';
-                    if(typeof val == 'undefined') {
-                        val = '';
-                    }
-                    return val;
-                });
-            }
-
-            function initIpsum(conf){
-                // 异步请求后台数据
-                $.ajax({
-                    url: conf.url,
-                    type: 'GET',
-                    dataType: conf.dataType,
-                    success: function(res){
-                    //获取数据成功
-                        if (res.code == 0){
-                            var count = res.data.count;
-                        }
-                    }
-                });
-            }
-    </script>
-    <script>
-        $(function () {
-            initIpsum({
-                url:'http://paas.liu.com/api/c/compapi/v2/cc/search_host/?bk_app_code=xiang02&bk_app_secret=c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4&bk_username=admin',
-                dataType:'json',
-            });
-        });
-    </script>
 </body>
-
 </html>
+<script>
+    $.get('${SITE_URL}get_count_server/',function (data) {
+        if(data.result){
+            var message = data.message;
+            let [normal_server,abnormal_server,count_server] = [0,0,Object.keys(message).length]
+            for(var i in message){
+                if(message[i].status == "0")
+                    normal_server++
+                else
+                    abnormal_server++
+            $("#count_server").html(count_server+"台")
+            $("#normal_server").html("正常:"+normal_server)
+            $("#abnormal_server").html("故障:"+abnormal_server)
+}
+        }
+        else {
+            alert("获取失败")
+        }
+    },'json')
+
+    $.get('${SITE_URL}get_warn_server/',function (data) {
+        if(data.result){
+            var message = data.message;
+            let warn_server = Object.keys(message).length;
+
+            $("#warn_sever").html("告警:"+warn_server)
+        }
+        else {
+            alert("获取失败")
+        }
+    },'json')
+</script>
+<script>
+    $.get('${SITE_URL}get_count_network_server/',function (data) {
+    if(data.result){
+        var message = data.message;
+        let [normal_network_server,abnormal_network_server,count_network_server] = [0,0,Object.keys(message).length]
+        for(var i in message){
+            if(message[i].status == "0")
+                normal_network_server++
+            else
+                abnormal_network_server++
+        $("#count_network_server").html(count_network_server+"台")
+        $("#normal_network_server").html("正常:"+normal_network_server)
+        $("#abnormal_network_server").html("故障:"+abnormal_network_server)
+}
+    }
+    else {
+        alert("获取失败")
+    }
+},'json')
+
+$.get('${SITE_URL}get_warn_network_server/',function (data) {
+    if(data.result){
+        var message = data.message;
+        let warn_network_server = Object.keys(message).length
+
+        $("#warn_network_sever").html("告警:"+warn_network_server)
+    }
+    else {
+        alert("获取失败")
+    }
+},'json')
+</script>
+<script>
+    function renderTpl(str, cfg) {
+            var re = /(#(.+?)#)/g;
+
+            return str.replace(re, function() {
+                var val = cfg[arguments[2]]+'';
+                if(typeof val == 'undefined') {
+                    val = '';
+                }
+                return val;
+            });
+        }
+
+        function initList2(conf){
+            // 异步请求后台数据
+            $.ajax({
+                url: conf.url,
+                type: 'GET',
+                dataType: conf.dataType,
+                success: function(res){
+                //获取数据成功
+                        var _html = ' ';
+                        var list = res.message;
+                        var tpl = $('#list2_tpl').html();
+                        var headerTpl =  $('#list2_header_tpl').html();
+                        if (list.length == 0){
+                            _html = $('#list2_nodata_tpl').html();
+                        }else{
+                            for (var i=0,len=list.length; i < len; i++){
+                                var item = list[i];
+                                _html += renderTpl(tpl, item)
+                            }
+                        }
+                        $(conf.container).find('.ranger-box tbody').html(_html);
+                        $(conf.container).find('.ranger-header-box thead').html(renderTpl(headerTpl));
+                }
+            });
+        }
+</script>
+<script>
+    initList2({
+            url: '${SITE_URL}get_network_server_value/',
+            dataType: 'json',
+            container: '#wangluo_cpu'
+        });
+</script>

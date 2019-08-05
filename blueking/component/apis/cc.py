@@ -1,4 +1,4 @@
-i# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from ..base import ComponentAPI
 
 
@@ -179,7 +179,7 @@ class CollectionsCC(object):
             description=u'查询分组权限'
         )
         self.search_host = ComponentAPI(
-            client=self.client, method='POST',
+            client=self.client, method='GET',
             path='/api/c/compapi{bk_api_ver}/cc/search_host/',
             description=u'根据条件查询主机'
         )
@@ -568,3 +568,4 @@ class CollectionsCC(object):
             path='/api/c/compapi{bk_api_ver}/cc/update_set_service_status/',
             description=u'修改集群服务状态'
         )
+

@@ -79,40 +79,8 @@
         </div>
     </div>
     <script>
-        function renderTpl(str, cfg) {
-                var re = /(#(.+?)#)/g;
 
-                return str.replace(re, function() {
-                    var val = cfg[arguments[2]]+'';
-                    if(typeof val == 'undefined') {
-                        val = '';
-                    }
-                    return val;
-                });
-            }
 
-            function initList2(conf){
-                // 异步请求后台数据
-                $.ajax({
-                    url: conf.url,
-                    type: 'GET',
-                    dataType: conf.dataType,
-                    success: function(res){
-                    //获取数据成功
-                        if (res.code == 0){
-                            var headerTpl =  $('#list2_header_tpl').html();
-                            $(conf.container).find('.ranger-header-box thead').html(renderTpl(headerTpl,res.data.count));
-                        }
-                    }
-                });
-            }
-    </script>
-    <script>
-        initList2({
-                url: 'http://paas.liu.com/api/c/compapi/v2/cc/search_host/?bk_app_code=xiang02&bk_app_secret=c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4&bk_username=admin',
-                dataType: 'json',
-                container: '#list_1564623711311'
-            });
     </script>
 </body>
 
