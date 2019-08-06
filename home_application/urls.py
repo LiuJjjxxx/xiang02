@@ -17,12 +17,16 @@ urlpatterns = patterns(
     #服务器
     (r'^get_count_server/$', 'get_count_server'),
     (r'^get_warn_server/$', 'get_warn_server'),
+    (r'^get_server_disk_key/$', 'get_server_disk_key'),
+    (r'^get_server_value/$', 'get_server_value'),
     #网络设备
     (r'^get_count_network_server/$', 'get_count_network_server'),
     (r'^get_warn_network_server/$', 'get_warn_network_server'),
     (r'^get_network_server_hostid/$', 'get_network_server_hostid'),
     (r'^get_network_server_key/$', 'get_network_server_key'),
     (r'^get_network_server_value/$', 'get_network_server_value'),
+    (r'^get_network_server_flow_value/$', 'get_network_server_flow_value'),
+    (r'^get_network_server_flow_key/$', 'get_network_server_flow_key'),
 
     (r'^get_jiaoben/$', 'get_jiaoben'),
 
