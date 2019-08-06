@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="70bec03d-c1bf-4667-ac76-6c61f721a553" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_application/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_application/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_application/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_application/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home_application/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home_application/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/bg2.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/bg2.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/home_application/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="574" column="36" selection-start-line="574" selection-start-column="36" selection-end-line="574" selection-end-column="36" />
+            <state relative-caret-position="312">
+              <caret line="569" column="36" selection-start-line="569" selection-start-column="36" selection-end-line="569" selection-end-column="36" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -61,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/home_application/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-126">
-              <caret line="366" column="36" lean-forward="true" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
+              <caret line="366" column="36" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
               <folding>
                 <element signature="e#695#752#0" expanded="true" />
               </folding>
@@ -73,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/home_application/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="390">
-              <caret line="28" column="71" lean-forward="true" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
+              <caret line="28" column="71" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -167,6 +165,17 @@
               <item name="framework" type="462c0819:PsiDirectoryNode" />
               <item name="home_application" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="framework" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="framework" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -244,12 +253,12 @@
       <workItem from="1564557822058" duration="31770000" />
       <workItem from="1564728178389" duration="313000" />
       <workItem from="1564729436399" duration="732000" />
-      <workItem from="1564731157349" duration="82395000" />
+      <workItem from="1564731157349" duration="82959000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119020000" />
+    <option name="totallyTimeSpent" value="119584000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -259,7 +268,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32952183" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -489,14 +498,14 @@
     <entry file="file://$PROJECT_DIR$/home_application/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
-          <caret line="28" column="71" lean-forward="true" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
+          <caret line="28" column="71" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/home_application/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-126">
-          <caret line="366" column="36" lean-forward="true" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
+          <caret line="366" column="36" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
           <folding>
             <element signature="e#695#752#0" expanded="true" />
           </folding>
@@ -505,8 +514,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/home_application/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="574" column="36" selection-start-line="574" selection-start-column="36" selection-end-line="574" selection-end-column="36" />
+        <state relative-caret-position="312">
+          <caret line="569" column="36" selection-start-line="569" selection-start-column="36" selection-end-line="569" selection-end-column="36" />
           <folding>
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
