@@ -14,6 +14,8 @@ from blueking.component.shortcuts import get_client_by_request
 from  django.http import JsonResponse
 from django.shortcuts import render
 import json
+from multiprocessing import Pool
+from multiprocessing.dummy import Pool as ThreadPool
 
 def home(request):
     """
@@ -21,15 +23,49 @@ def home(request):
     """
     return render_mako_context(request, '/home_application/home.html')
 
-
+#获取网络设备告警
+def get_warn_network_server(request):
+    client = get_client_by_request(request)
+    kwargs = {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
+        "method": "problem.get",
+        "params": {
+            "output": "extend",
+            "groupids": 15,
+            "filter":{
+                "severity": [3, 4, 5]
+            }
+        }
+    }
+    resp = client.zabbix.get_token(**kwargs)
+    warn = len(resp.get("result"))
+    return warn
+#获取服务器告警
+def get_warn_server(request):
+    client = get_client_by_request(request)
+    kwargs = {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
+        "method": "problem.get",
+        "params": {
+            "output": "extend",
+            "groupids": 16,
+            "filter":{
+                "severity": [3, 4, 5]
+            }
+        }
+    }
+    resp = client.zabbix.get_token(**kwargs)
+    warn = len(resp.get("result"))
+    return warn
 #获取token
 def get_token(request):
     global token
     client = get_client_by_request(request)
     kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
         "jsonrpc": "2.0",
         "id": 1,
         "auth": None,
@@ -47,9 +83,6 @@ def get_network_server_hostid(request,groupids):
     client = get_client_by_request(request)
     data = []
     kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
         "jsonrpc": "2.0",
         "id": 2,
         "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -63,7 +96,7 @@ def get_network_server_hostid(request,groupids):
     resp = client.zabbix.get_token(**kwargs)
     result = resp.get("result")
     sum = len(result)
-    for i in range(0,sum,1):
+    for i in range(sum):
         data.insert(i,result[i].get("interfaces")[0])
 
     return data
@@ -73,11 +106,8 @@ def get_network_server_key(request):
     data = get_network_server_hostid(request,groupids=15)
     client = get_client_by_request(request)
     sum = len(data)
-    for  i in range(0,sum,1):
+    for  i in range(sum):
         kwargs={
-            "bk_app_code": "xiang02",
-            "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-            "bk_username": "admin",
             "jsonrpc": "2.0",
             "id": 2,
             "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -103,11 +133,8 @@ def get_network_server_flow_key(request):
     client = get_client_by_request(request)
     sum = len(data)
     itemid = []
-    for j in range(0, sum, 1):
+    for j in range(sum):
         kwargs = {
-            "bk_app_code": "xiang02",
-            "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-            "bk_username": "admin",
             "jsonrpc": "2.0",
             "id": 2,
             "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -125,7 +152,7 @@ def get_network_server_flow_key(request):
             pass
         else:
             sum = len(resp.get("result"))
-            for i in range(0,sum,1):
+            for i in range(sum):
                 itemid.insert(i,resp.get("result")[i].get("itemid"))
                 data[j]["itemid"] = itemid
         itemid = []
@@ -138,11 +165,8 @@ def get_server_disk_key(request):
     client = get_client_by_request(request)
     sum = len(data)
     itemid = []
-    for j in range(0, sum, 1):
+    for j in range(sum):
         kwargs = {
-            "bk_app_code": "xiang02",
-            "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-            "bk_username": "admin",
             "jsonrpc": "2.0",
             "id": 2,
             "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -162,7 +186,7 @@ def get_server_disk_key(request):
             print("我失败了")
         else:
             sum = len(resp.get("result"))
-            for i in range(0,sum,1):
+            for i in range(sum):
                 itemid.insert(i,resp.get("result")[i].get("itemid"))
                 data[j]["itemid"] = itemid
         itemid = []
@@ -171,6 +195,7 @@ def get_server_disk_key(request):
 #-----------------------------------------------------------------------------------------------------------
 #获取服务器总数
 def get_count_server(request):
+    warn = get_warn_server(request)
     client = get_client_by_request(request)
     kwargs = {
         "bk_app_code": "xiang02",
@@ -181,92 +206,44 @@ def get_count_server(request):
         "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
         "method": "host.get",
         "params": {
-            "output": ["name", "interfaces", "host", "status", "available"],
-            "groupids": 16,
-            "selectInterfaces": ["hostid", "host", "ip"]
+            "output": ["status"],
+            "groupids": 16
         }
     }
     resp = client.zabbix.get_token(**kwargs)
-    result = resp.get("result")
+    result = {'result':resp.get("result"),'warn':warn}
     return render_json(result)
 #获取网络设备总数
 def get_count_network_server(request):
+    warn  = get_warn_network_server(request)
     client = get_client_by_request(request)
     kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
         "jsonrpc": "2.0",
         "id": 2,
         "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
         "method": "host.get",
         "params": {
-            "output": ["name", "interfaces", "host", "status", "available"],
-            "groupids": 15,
-            "selectInterfaces": ["hostid", "host", "ip"]
+            "output": ["status"],
+            "groupids": 15
         }
     }
     resp = client.zabbix.get_token(**kwargs)
-    result = resp.get("result")
+    result = {'result':resp.get("result"),'warn':warn}
     return render_json(result)
 
-#获取服务器告警
-def get_warn_server(request):
-    client = get_client_by_request(request)
-    kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
-        "jsonrpc": "2.0",
-        "id": 2,
-        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
-        "method": "problem.get",
-        "params": {
-            "output": "extend",
-            "groupids": 16,
-            "filter":{
-                "severity": [3, 4, 5]
-            }
-        }
-    }
-    resp = client.zabbix.get_token(**kwargs)
-    result = resp.get("result")
-    return render_json(result)
+
 #-----------------------------------------------------------------------------------------------------------
-#获取网络设备告警
-def get_warn_network_server(request):
-    client = get_client_by_request(request)
-    kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
-        "jsonrpc": "2.0",
-        "id": 2,
-        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
-        "method": "problem.get",
-        "params": {
-            "output": "extend",
-            "groupids": 15,
-            "filter":{
-                "severity": [3, 4, 5]
-            }
-        }
-    }
-    resp = client.zabbix.get_token(**kwargs)
-    result = resp.get("result")
-    return render_json(result)
+
 #获取网络设备的CPU的利用率
 def get_network_server_value(request):
     data = get_network_server_key(request)
     ip_value = []
     client = get_client_by_request(request)
     sum = len(data)
-    for i in range(0,sum,1):
-        if(data[i].has_key('itemid')):
+    for i in range(sum):
+        what = data[i].has_key('itemid')
+        if(what):
             kwargs = {
-                "bk_app_code": "xiang02",
-                "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-                "bk_username": "admin",
                 "jsonrpc": "2.0",
                 "id": 2,
                 "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -290,7 +267,7 @@ def get_network_server_value(request):
             data[i]["value"] = 0
     data.sort(reverse=True, key=lambda x: x["value"])
     sum =len(data)
-    for i in range(0,sum,1):
+    for i in range(sum):
         data[i]["index"] = i+1
     return render_json(data)
 #-----------------------------------------------------------------------------------------------------------
@@ -298,15 +275,12 @@ def get_network_server_value(request):
 def get_server_value(request):
     data = get_server_disk_key(request)
     client = get_client_by_request(request)
-    sum = len(data)
     value = 0
-    for i in range(0,sum,1):
+    sum =len(data)
+    for i in range(sum):
         itemid_sum = len(data[i].get("itemid"))
-        for  j in range(0,itemid_sum,1):
+        for  j in range(itemid_sum):
             kwargs = {
-                "bk_app_code": "xiang02",
-                "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-                "bk_username": "admin",
                 "jsonrpc": "2.0",
                 "id": 2,
                 "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -327,8 +301,7 @@ def get_server_value(request):
         data[i]['value'] = value
         value = 0
     data.sort(reverse=False, key=lambda x: x["value"])
-    sum = len(data)
-    for i in range(0, sum, 1):
+    for i in range(sum):
         data[i]["index"] = i + 1
     return render_json(data)
 
@@ -336,18 +309,15 @@ def get_server_value(request):
 def get_network_server_flow_value(request):
     data = get_network_server_flow_key(request)
     client = get_client_by_request(request)
-    sum = len(data)
     value =0
-    for i in range(0,sum,1):
+    sum = len(data)
+    for i in range(sum):
         if(data[i].get("itemid")==None):
             data[i]["value"] = 0
         else:
             itemid_sum = len(data[i].get("itemid"))
-            for j in range(0, itemid_sum, 1):
+            for j in range(itemid_sum):
                 kwargs = {
-                    "bk_app_code": "xiang02",
-                    "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-                    "bk_username": "admin",
                     "jsonrpc": "2.0",
                     "id": 2,
                     "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
@@ -367,27 +337,16 @@ def get_network_server_flow_value(request):
             data[i]['value'] = value
             value = 0
     data.sort(reverse=True, key=lambda x: x["value"])
-    sum = len(data)
-    for i in range(0, sum, 1):
+    for i in range(sum):
         data[i]["index"] = i + 1
     return render_json(data)
 
 
 def get_jiaoben(request):
-    client = get_client_by_request(request)
-    get_token(request)
-    kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
-        "jsonrpc": "2.0",
-        "id": 1,
-        "auth": token,
-        "method": "hostgroup.get",
-        "params": {"output": ["name","groupid"]}
-}
+    data = get_network_server_hostid(request,groupids=15)
+    results = map(1,data)
+    print(data)
+    return render_mako_context(request, '/home_application/ceshi.html')
 
-    resp = client.zabbix.get_token(**kwargs)
-    result = resp.get("result")
-    return render_json(result)
+
 

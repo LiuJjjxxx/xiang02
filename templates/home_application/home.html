@@ -352,7 +352,7 @@
 <script>
     $.get('${SITE_URL}get_count_server/',function (data) {
         if(data.result){
-            var message = data.message;
+            var message = data.result;
             let [normal_server,abnormal_server,count_server] = [0,0,Object.keys(message).length]
             for(var i in message){
                 if(message[i].status == "0")
@@ -362,19 +362,8 @@
             $("#count_server").html(count_server+"台")
             $("#normal_server").html("正常:"+normal_server)
             $("#abnormal_server").html("故障:"+abnormal_server)
+            $("#warn_sever").html("告警:"+data.warn)
 }
-        }
-        else {
-            alert("获取失败")
-        }
-    },'json')
-
-    $.get('${SITE_URL}get_warn_server/',function (data) {
-        if(data.result){
-            var message = data.message;
-            let warn_server = Object.keys(message).length;
-
-            $("#warn_sever").html("告警:"+warn_server)
         }
         else {
             alert("获取失败")
@@ -384,7 +373,7 @@
 <script>
     $.get('${SITE_URL}get_count_network_server/',function (data) {
     if(data.result){
-        var message = data.message;
+        var message = data.result;
         let [normal_network_server,abnormal_network_server,count_network_server] = [0,0,Object.keys(message).length]
         for(var i in message){
             if(message[i].status == "0")
@@ -394,19 +383,8 @@
         $("#count_network_server").html(count_network_server+"台")
         $("#normal_network_server").html("正常:"+normal_network_server)
         $("#abnormal_network_server").html("故障:"+abnormal_network_server)
+        $("#warn_network_sever").html("告警:"+data.warn)
 }
-    }
-    else {
-        alert("获取失败")
-    }
-},'json')
-
-$.get('${SITE_URL}get_warn_network_server/',function (data) {
-    if(data.result){
-        var message = data.message;
-        let warn_network_server = Object.keys(message).length
-
-        $("#warn_network_sever").html("告警:"+warn_network_server)
     }
     else {
         alert("获取失败")
@@ -481,6 +459,7 @@ $.get('${SITE_URL}get_warn_network_server/',function (data) {
                 dataType: conf.dataType,
                 success: function(res){
                 //获取数据成功
+
                         var _html = ' ';
                         var list = res.message;
                         var tpl = $('#server_tpl').html();
