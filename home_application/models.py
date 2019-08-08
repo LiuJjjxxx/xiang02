@@ -9,4 +9,9 @@ an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express o
 See the License for the specific language governing permissions and limitations under the License.
 """
 
-# from django.db import models
+from django.db import models
+
+class warn_sum(models.Model):
+    name = models.CharField(max_length=64)
+    warn_count = models.CharField(max_length=64)
+    date = models.DateTimeField(auto_now_add=True)

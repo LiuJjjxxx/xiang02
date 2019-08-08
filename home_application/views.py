@@ -13,9 +13,10 @@ from common.mymako import render_mako_context,render_json
 from blueking.component.shortcuts import get_client_by_request
 from  django.http import JsonResponse
 from django.shortcuts import render
-import json
+import json,time
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
+from  .models import warn_sum
 
 def home(request):
     """
@@ -41,6 +42,10 @@ def get_warn_network_server(request):
     }
     resp = client.zabbix.get_token(**kwargs)
     warn = len(resp.get("result"))
+    warn_in_sql = warn_sum()
+    warn_in_sql.name = 'wangluo'
+    warn_in_sql.warn_count = warn
+    warn_in_sql.save()
     return warn
 #获取服务器告警
 def get_warn_server(request):
@@ -60,6 +65,10 @@ def get_warn_server(request):
     }
     resp = client.zabbix.get_token(**kwargs)
     warn = len(resp.get("result"))
+    warn_in_sql = warn_sum()
+    warn_in_sql.name = 'fuwuqi'
+    warn_in_sql.warn_count = warn
+    warn_in_sql.save()
     return warn
 #获取token
 def get_token(request):
@@ -142,8 +151,9 @@ def get_network_server_flow_key(request):
             "params": {
                 "output": ["itemid", "name", "key_", "status", "value_type"],
                 "hostids": data[j].get("hostid"),
+                "searchByAny": True,
                 "search": {
-                    "key_": "port.inbytes"
+                    "key_": ["port.inbytes","ifInOctets"]
                 }
             }
         }
@@ -266,7 +276,6 @@ def get_network_server_value(request):
         else:
             data[i]["value"] = 0
     data.sort(reverse=True, key=lambda x: x["value"])
-    sum =len(data)
     for i in range(sum):
         data[i]["index"] = i+1
     return render_json(data)
@@ -306,6 +315,7 @@ def get_server_value(request):
     return render_json(data)
 
 #--------------------------------------------------------
+#获取磁盘进流量
 def get_network_server_flow_value(request):
     data = get_network_server_flow_key(request)
     client = get_client_by_request(request)
@@ -332,8 +342,7 @@ def get_network_server_flow_value(request):
                 }
                 resp = client.zabbix.get_token(**kwargs)
                 result = resp.get("result")
-                value += float(result[0].get("value_avg"))
-            value = format(float(value) / 8192, '.0f')
+                value +=  int(float(result[0].get("value_avg")))
             data[i]['value'] = value
             value = 0
     data.sort(reverse=True, key=lambda x: x["value"])
@@ -341,11 +350,58 @@ def get_network_server_flow_value(request):
         data[i]["index"] = i + 1
     return render_json(data)
 
+#获取业务系统cpu:
+def get_business_cpu(request):
+    client = get_client_by_request(request)
+    timer =time.time() - 7600
+    kwargs ={
+        "jsonrpc": "2.0",
+        "method": "trend.get",
+        "params": {
+            "itemids": "23306",
+            "limit": "1",
+            "time_from": timer
+        },
+        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
+        "id": 1
+    }
+    resp = client.zabbix.get_token(**kwargs)
+    value = resp.get("result")
+    return render_json(value)
+def get_warn_sum_count(request):
+    fuwuqi = warn_sum.objects.filter(name='fuwuqi').order_by('-date')[:5].values('date', 'warn_count')
+    wangluo = warn_sum.objects.filter(name='wangluo').order_by('-date')[:5].values('date', 'warn_count')
+    sum = len(wangluo)
+    data = {}
+    fuwuqi_count = []
+    wangluo_count = []
+    timeer = []
+    for i in range(sum):
+        fuwuqi_count.insert(i, fuwuqi[i].get("warn_count"))
+        wangluo_count.insert(i, wangluo[i].get("warn_count"))
+        timeer.insert(i, fuwuqi[i].get("date").strftime('%d/%m %H:%M'))
+    data["fuwuqi"] = fuwuqi_count
+    data["wangluo"] = wangluo_count
+    data["date"] = timeer
+
+    return render_json(data)
 
 def get_jiaoben(request):
-    data = get_network_server_hostid(request,groupids=15)
-    results = map(1,data)
-    print(data)
+    fuwuqi = warn_sum.objects.filter(name='fuwuqi').order_by('-date')[:5].values('date', 'warn_count')
+    wangluo = warn_sum.objects.filter(name='wangluo').order_by('-date')[:5].values('date', 'warn_count')
+    sum = len(wangluo)
+    data = {}
+    fuwuqi_count = []
+    wangluo_count = []
+    timeer = []
+    for i in range(sum):
+        fuwuqi_count.insert(i, fuwuqi[i].get("warn_count"))
+        wangluo_count.insert(i, wangluo[i].get("warn_count"))
+        timeer.insert(i, fuwuqi[i].get("date").strftime('%d/%m %H:%M'))
+    data["fuwuqi"] = fuwuqi_count
+    data["wangluo"] = wangluo_count
+    data["date"] = timeer
+    print(wangluo_five)
     return render_mako_context(request, '/home_application/ceshi.html')
 
 

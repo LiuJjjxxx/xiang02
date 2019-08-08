@@ -21,7 +21,8 @@
     <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
-    <script src="//cdn.bootcss.com/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
     <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
@@ -33,6 +34,10 @@
         var site_url = "${SITE_URL}"
         var static_url = "${STATIC_URL}"
     </script>
+    <style>
+
+
+    </style>
     <script src="${STATIC_URL}js/settings.js?v=${STATIC_VERSION}" type="text/javascript"></script>
 </head>
 <body>
@@ -93,7 +98,7 @@
                 </div>
             </div>
             <div class="king-icon-wrap">
-                <span class="king-widget-info">
+                <span class="king-widget-danger">
                        <i class="fa fa-briefcase"></i>
                    </span>
                 <h5>业务系统</h5>
@@ -129,11 +134,11 @@
         <div class="king-container clearfix four" >
             <div class="container-fluid mb0 ">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="flow_sum">
+                     <div class="col-md-4">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="yewu_cpu">
                             <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>流量排行</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>业务系统CPU</h3>
                             </div>
                             <div class="ranger-wrapper">
                                 <table class="mb0 pr15 ranger-header-box color">
@@ -153,48 +158,47 @@
                         </div>
                     </div>
                     <!-- 设置面板Start -->
-                        <template id="server_flow_header_tpl">
+                        <template id="bussion_header_tpl">
                             <tr>
-                                <th class="p15">排名</th>
-                                <th >服务器IP</th>
-                                <th>进流量</th>
+                                <th class="p15 font" style="width: 20%" >排行</th>
+                                <th class=" font" style="width: 40%">系统</th>
+                                <th class=" font" style="width: 40%">利用率</th>
                             </tr>
                         </template>
-
-                        <template id="flow_tpl" style="background: rgba(0,0,0,0)">
+                        <template id="bussion_tpl" style="background: rgba(0,0,0,0)">
                             <tr>
-                                <td class="p15" style="width:20%;">#index#</td>
-                                <td style="width:40%;">#ip#</td>
-                                <td>#value#kb</td>
-                            </tr>
-                        </template>
-                        <template id="list2_nodata_tpl">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="bk-nodata-tip">暂时没有数据</p>
-                                </td>
+                                <td class="p15 font" >1</td>
+                                <td class="p15 font" >zabbix</td>
+                                <td class="p15 font" >#value_avg#%</td>
                             </tr>
                         </template>
                     <div class="col-md-4">
-                        <canvas id="myChart" style="width:400px; height:800px;"></canvas>
+                        <canvas id="myChart"></canvas>
                     </div>
                     <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="disk_sum">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555805283">
                             <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>存储空间排行</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>数据库CPU</h3>
                             </div>
                             <div class="ranger-wrapper">
-                                <table class="mb0 pr15 ranger-header-box color">
+                                <table class="color mb0 pr15 ranger-header-box">
                                     <thead class="font">
+                                        <tr>
+                                            <th class="p15 font" style="width: 20%" >排行</th>
+                                            <th class=" font" style="width: 40%">数据库</th>
+                                            <th class=" font" style="width: 40%">利用率</th>
+                                         </tr>
                                     </thead>
                                 </table>
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
                                     <table class="font mb0" style="width: 100%;max-width: 100%">
                                         <tbody id="">
-                                        <tr>
-                                            <td>暂无数据</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="p15 font" style="width: 20%">1</td>
+                                                <td class="font"style="width: 40%">Mysql</td>
+                                                <td class="font"style="width: 40%">2.533%</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -209,7 +213,6 @@
                                 <th>磁盘剩余大小</th>
                             </tr>
                         </template>
-
                         <template id="server_tpl" style="background: rgba(0,0,0,0)">
                             <tr>
                                 <td class="p15" style="width:20%;">#index#</td>
@@ -264,8 +267,7 @@
                                 <th class=" font" style="width: 30%">内存利用率</th>
                             </tr>
                         </template>
-
-                        <template id="list2_tpl" style="background: rgba(0,0,0,0)">
+                        <template id="cpu_tpl" style="background: rgba(0,0,0,0)">
                             <tr>
                                 <td class="p15" style="width: 10%">#index#</td>
                                 <td style="width: 30%">#ip#</td>
@@ -273,82 +275,152 @@
                                 <td style="width: 30%">暂未获取</td>
                             </tr>
                         </template>
-                        <template id="list2_nodata_tpl">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="bk-nodata-tip">暂时没有数据</p>
-                                </td>
-                            </tr>
-                        </template>
                         <!-- 设置面板End -->
-                    <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="yewu_cpu">
+                        <div class="col-md-4">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="flow_sum">
                             <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>业务系统CPU</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>流量排行</h3>
                             </div>
                             <div class="ranger-wrapper">
-                                <table class="color mb0 pr15 ranger-header-box">
+                                <table class="mb0 pr15 ranger-header-box color">
                                     <thead class="font">
                                     </thead>
                                 </table>
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
                                     <table class="font mb0" style="width: 100%;max-width: 100%">
                                         <tbody id="">
-                                            <tr>
-                                                <td>暂无数据</td>
-                                            </tr>
+                                        <tr>
+                                            <td>暂无数据</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <!-- 设置面板Start -->
-                        <template id="list2_tpl">
-                            <tr>
-                                <td class="p15">#index#</td>
-                                <td>#name#</td>
-                                <td>#score#</td>
-                            </tr>
-                        </template>
-                        <template id="list2_nodata_tpl">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="bk-nodata-tip">暂时没有数据</p>
-                                </td>
-                            </tr>
-                        </template>
-                        <!-- 设置面板End -->
                     </div>
+                    <!-- 设置面板Start -->
+                        <template id="server_flow_header_tpl">
+                            <tr>
+                                <th class="p15">排名</th>
+                                <th >服务器IP</th>
+                                <th>进流量</th>
+                            </tr>
+                        </template>
+
+                        <template id="flow_tpl" style="background: rgba(0,0,0,0)">
+                            <tr>
+                                <td class="p15" style="width:20%;">#index#</td>
+                                <td style="width:40%;">#ip#</td>
+                                <td>#value#kb</td>
+                            </tr>
+                        </template>
+                        <template id="list2_nodata_tpl">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="bk-nodata-tip">暂时没有数据</p>
+                                </td>
+                            </tr>
+                        </template>
                     <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555805283">
+                        <div class="king-block king-block-themed bk-ranger-box mb10" id="disk_sum">
                             <div class="king-block-header ">
                                 <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>数据库CPU</h3>
+                                    <span class="fa fa-bar-chart mr5"></span>存储空间排行</h3>
                             </div>
                             <div class="ranger-wrapper">
-                                <table class="color mb0 pr15 ranger-header-box">
+                                <table class="mb0 pr15 ranger-header-box color">
                                     <thead class="font">
                                     </thead>
                                 </table>
                                 <div style="height:203px; overflow: auto;" class="ranger-box">
                                     <table class="font mb0" style="width: 100%;max-width: 100%">
                                         <tbody id="">
-                                            <tr>
-                                                <td>暂无数据</td>
-                                            </tr>
+                                        <tr>
+                                            <td>暂无数据</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- 设置面板Start -->
+                        <template id="server_header_tpl">
+                            <tr>
+                                <th class="p15 font" style="width:20%;">排名</th>
+                                <th class=" font" style="width:40%;">服务器IP</th>
+                                <th class=" font">磁盘剩余大小</th>
+                            </tr>
+                        </template>
+
+                        <template id="server_tpl" style="background: rgba(0,0,0,0)">
+                            <tr>
+                                <td class="p15" style="width:20%;">#index#</td>
+                                <td style="width:40%;">#ip#</td>
+                                <td>#value#G</td>
+                            </tr>
+                        </template>
+                        <template id="list2_nodata_tpl">
+                            <tr>
+                                <td colspan="3">
+                                    <p class="bk-nodata-tip">暂时没有数据</p>
+                                </td>
+                            </tr>
+                        </template>
+                    </div>
                     </div>
                 </div>
-            </div>
-   </div>
 
 </body>
 </html>
+<script>
+    function renderTpl(str, cfg) {
+            var re = /(#(.+?)#)/g;
+
+            return str.replace(re, function() {
+                var val = cfg[arguments[2]]+'';
+                if(typeof val == 'undefined') {
+                    val = '';
+                }
+                else if(typeof val == 0 ){
+                    val = '暂无数据'
+                }
+                return val;
+            });
+        }
+
+        function initList2(conf){
+            // 异步请求后台数据
+            $.ajax({
+                url: conf.url,
+                type: 'GET',
+                dataType: conf.dataType,
+                success: function(res){
+                //获取数据成功
+                        var _html = ' ';
+                        var list = res.message
+                        var tpl = $('#bussion_tpl').html();
+                        var headerTpl =  $('#bussion_header_tpl').html();
+                        if (list.length == 0){
+                            _html = $('#list2_nodata_tpl').html();
+                        }else{
+                            for (var i=0,len=list.length; i < len; i++){
+                                var item = list[i];
+                                _html += renderTpl(tpl, item)
+                            }
+                        }
+                        $(conf.container).find('.ranger-box tbody').html(_html);
+                        $(conf.container).find('.ranger-header-box thead').html(renderTpl(headerTpl));
+                }
+            });
+        }
+    initList2({
+            url: '${SITE_URL}get_business_cpu/',
+            dataType: 'json',
+            container: '#yewu_cpu'
+        });
+</script>
 <script>
     $.get('${SITE_URL}get_count_server/',function (data) {
         if(data.result){
@@ -391,6 +463,9 @@
     }
 },'json')
 </script>
+
+
+
 <script>
     function renderTpl(str, cfg) {
             var re = /(#(.+?)#)/g;
@@ -412,9 +487,10 @@
                 dataType: conf.dataType,
                 success: function(res){
                 //获取数据成功
+                        var newres =  res.message
                         var _html = ' ';
                         var list = res.message;
-                        var tpl = $('#list2_tpl').html();
+                        var tpl = $('#cpu_tpl').html();
                         var headerTpl =  $('#list2_header_tpl').html();
                         if (list.length == 0){
                             _html = $('#list2_nodata_tpl').html();
@@ -462,6 +538,7 @@
 
                         var _html = ' ';
                         var list = res.message;
+
                         var tpl = $('#server_tpl').html();
                         var headerTpl =  $('#server_header_tpl').html();
                         if (list.length == 0){
@@ -509,6 +586,11 @@
                 //获取数据成功
                         var _html = ' ';
                         var list = res.message;
+                        for(var i=0,len=list.length; i < len; i++){
+                            var newvalue = list[i].value/8192;
+                            newvalue = newvalue.toFixed(2);
+                            list[i].value = newvalue;
+                        }
                         var tpl = $('#flow_tpl').html();
                         var headerTpl =  $('#server_flow_header_tpl').html();
                         if (list.length == 0){
@@ -530,32 +612,64 @@
             container: '#flow_sum'
         });
 </script>
-<script type="text/javascript">
- $(function () {
-        var data={
+
+<script>
+        function createLine(conf) {
+            var data={
             //折线图需要为每个数据点设置一标签。这是显示在X轴上。
-            labels: ["10.01","10.02","10.03","10.04","10.05"],
+            labels: conf.data.date.reverse(),
             //数据集（y轴数据范围随数据集合中的data中的最大或最小数据而动态改变的）
             datasets: [{
-                label: '告警趋势',
-                backgroundColor: "rgba(122,122,255,0.5)", //背景填充色
-                borderColor: "#36A2EB", //路径颜色
+                label: '服务器',
+                backgroundColor: "rgba(243,183,96,0)", //背景填充色
+                borderColor: "#f3b760", //路径颜色
                 pointBackgroundColor: "#36A2EB", //数据点颜色
                 pointBorderColor: "#fff", //数据点边框颜色
-                data: [7,6,8,9,9] //对应的值
+                data: conf.data.fuwuqi.reverse() //对应的值
+            },
+            {
+                label: '网络设备',
+                backgroundColor: "rgba(68,181,73,0)", //背景填充色
+                borderColor: "#44B549", //路径颜色
+                pointBackgroundColor: "#36A2EB", //数据点颜色
+                pointBorderColor: "#fff", //数据点边框颜色
+                data: conf.data.wangluo.reverse() //对应的值
             }]
         };
+
         var ctx = document.getElementById("myChart").getContext('2d');
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: data,
             options: {
                 title: {
-                    text : "告警趋势统计",
+                    text : '告警趋势图',
                     display: true,
                 }
             }
         });
+        }
 
+
+    function initKendoLineChart(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function(res){
+                    var data = res
+                    createLine({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+    }
+    $(function(){
+        initKendoLineChart({
+            url: '${SITE_URL}get_warn_sum_count/',
+            dataType: 'json',
+        });
     });
 </script>
+
