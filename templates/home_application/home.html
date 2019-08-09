@@ -506,7 +506,7 @@
             });
         }
     initList2({
-            url: '${SITE_URL}get_network_server_value/',
+            url: '${SITE_URL}get_sql/get_netwokr_server_cpu_in_sql/',
             dataType: 'json',
             container: '#wangluo_cpu'
         });
@@ -555,7 +555,7 @@
             });
         }
     initList2({
-            url: '${SITE_URL}get_server_value/',
+            url: '${SITE_URL}get_sql/get_server_value_in_sql/',
             dataType: 'json',
             container: '#disk_sum'
         });
@@ -607,7 +607,7 @@
             });
         }
     initList2({
-            url: '${SITE_URL}get_network_server_flow_value/',
+            url: '${SITE_URL}get_sql/get_netwokr_server_flow_in_sql',
             dataType: 'json',
             container: '#flow_sum'
         });
@@ -667,7 +667,7 @@
     }
     $(function(){
         initKendoLineChart({
-            url: '${SITE_URL}get_warn_sum_count/',
+            url: '${SITE_URL}get_sql/get_warn_sum_count/',
             dataType: 'json',
         });
     });

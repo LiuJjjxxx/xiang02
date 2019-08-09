@@ -29,12 +29,4 @@ urlpatterns = patterns(
     (r'^get_network_server_flow_key/$', 'get_network_server_flow_key'),
     #业务系统
     (r'^get_business_cpu/$', 'get_business_cpu'),
-
-
-
-    #趋势图
-    (r'^get_warn_sum_count/$', 'get_warn_sum_count'),
-
-    (r'^get_jiaoben/$', 'get_jiaoben'),
-
 )

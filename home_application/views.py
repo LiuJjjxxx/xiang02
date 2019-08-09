@@ -13,10 +13,10 @@ from common.mymako import render_mako_context,render_json
 from blueking.component.shortcuts import get_client_by_request
 from  django.http import JsonResponse
 from django.shortcuts import render
-import json,time
+import json,time,datetime
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
-from  .models import warn_sum
+from  .models import warn_sum,server_value,network_server_cpu_value,network_server_flow_value
 
 def home(request):
     """
@@ -246,6 +246,7 @@ def get_count_network_server(request):
 
 #获取网络设备的CPU的利用率
 def get_network_server_value(request):
+    network_server_CPU_value_list_to_insert = list()
     data = get_network_server_key(request)
     ip_value = []
     client = get_client_by_request(request)
@@ -277,11 +278,15 @@ def get_network_server_value(request):
             data[i]["value"] = 0
     data.sort(reverse=True, key=lambda x: x["value"])
     for i in range(sum):
-        data[i]["index"] = i+1
+        data[i]["index"] = i + 1
+        network_server_CPU_value_list_to_insert.append(
+            network_server_cpu_value(index=data[i].get("index"), value=data[i].get("value"), ip=data[i].get("ip")))
+    network_server_cpu_value.objects.bulk_create(network_server_CPU_value_list_to_insert)
     return render_json(data)
 #-----------------------------------------------------------------------------------------------------------
 #获取服务器磁盘大小
 def get_server_value(request):
+    server_value_list_to_insert = list()
     data = get_server_disk_key(request)
     client = get_client_by_request(request)
     value = 0
@@ -312,11 +317,14 @@ def get_server_value(request):
     data.sort(reverse=False, key=lambda x: x["value"])
     for i in range(sum):
         data[i]["index"] = i + 1
+        server_value_list_to_insert.append(server_value(index=data[i].get("index"),value=data[i].get("value"),ip=data[i].get("ip")))
+    server_value.objects.bulk_create(server_value_list_to_insert)
     return render_json(data)
 
 #--------------------------------------------------------
 #获取磁盘进流量
 def get_network_server_flow_value(request):
+    network_server_flow_value_list_to_insert = list()
     data = get_network_server_flow_key(request)
     client = get_client_by_request(request)
     value =0
@@ -348,6 +356,8 @@ def get_network_server_flow_value(request):
     data.sort(reverse=True, key=lambda x: x["value"])
     for i in range(sum):
         data[i]["index"] = i + 1
+        network_server_flow_value_list_to_insert.append(network_server_flow_value(index=data[i].get("index"),value=data[i].get("value"),ip=data[i].get("ip")))
+    network_server_flow_value.objects.bulk_create(network_server_flow_value_list_to_insert)
     return render_json(data)
 
 #获取业务系统cpu:
@@ -368,41 +378,7 @@ def get_business_cpu(request):
     resp = client.zabbix.get_token(**kwargs)
     value = resp.get("result")
     return render_json(value)
-def get_warn_sum_count(request):
-    fuwuqi = warn_sum.objects.filter(name='fuwuqi').order_by('-date')[:5].values('date', 'warn_count')
-    wangluo = warn_sum.objects.filter(name='wangluo').order_by('-date')[:5].values('date', 'warn_count')
-    sum = len(wangluo)
-    data = {}
-    fuwuqi_count = []
-    wangluo_count = []
-    timeer = []
-    for i in range(sum):
-        fuwuqi_count.insert(i, fuwuqi[i].get("warn_count"))
-        wangluo_count.insert(i, wangluo[i].get("warn_count"))
-        timeer.insert(i, fuwuqi[i].get("date").strftime('%d/%m %H:%M'))
-    data["fuwuqi"] = fuwuqi_count
-    data["wangluo"] = wangluo_count
-    data["date"] = timeer
 
-    return render_json(data)
-
-def get_jiaoben(request):
-    fuwuqi = warn_sum.objects.filter(name='fuwuqi').order_by('-date')[:5].values('date', 'warn_count')
-    wangluo = warn_sum.objects.filter(name='wangluo').order_by('-date')[:5].values('date', 'warn_count')
-    sum = len(wangluo)
-    data = {}
-    fuwuqi_count = []
-    wangluo_count = []
-    timeer = []
-    for i in range(sum):
-        fuwuqi_count.insert(i, fuwuqi[i].get("warn_count"))
-        wangluo_count.insert(i, wangluo[i].get("warn_count"))
-        timeer.insert(i, fuwuqi[i].get("date").strftime('%d/%m %H:%M'))
-    data["fuwuqi"] = fuwuqi_count
-    data["wangluo"] = wangluo_count
-    data["date"] = timeer
-    print(wangluo_five)
-    return render_mako_context(request, '/home_application/ceshi.html')
 
 
 

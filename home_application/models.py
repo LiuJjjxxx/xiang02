@@ -13,5 +13,24 @@ from django.db import models
 
 class warn_sum(models.Model):
     name = models.CharField(max_length=64)
-    warn_count = models.CharField(max_length=64)
+    warn_count = models.IntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+
+
+class server_value(models.Model):
+    index = models.IntegerField()
+    ip  = models.CharField(max_length=64)
+    value = models.CharField(max_length=64)
+    date = models.DateTimeField(auto_now_add=True)
+
+class network_server_flow_value(models.Model):
+    index = models.IntegerField()
+    ip  = models.CharField(max_length=64)
+    value = models.CharField(max_length=64)
+    date = models.DateTimeField(auto_now_add=True)
+
+class network_server_cpu_value(models.Model):
+    index = models.IntegerField()
+    ip  = models.CharField(max_length=64)
+    value = models.CharField(max_length=64)
     date = models.DateTimeField(auto_now_add=True)
