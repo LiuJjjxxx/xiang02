@@ -9,14 +9,14 @@ an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express o
 See the License for the specific language governing permissions and limitations under the License.
 """
 
-from common.mymako import render_mako_context,render_json
+from common.mymako import render_mako_context,render_json,HttpResponse
 from blueking.component.shortcuts import get_client_by_request
 from  django.http import JsonResponse
 from django.shortcuts import render
 import json,time,datetime
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
-from  .models import warn_sum,server_value,network_server_cpu_value,network_server_flow_value
+from  .models import warn_sum,server_value,network_server_cpu_value,network_server_flow_value,yewu_cpu_value
 
 def home(request):
     """
@@ -25,6 +25,7 @@ def home(request):
     return render_mako_context(request, '/home_application/home.html')
 
 #获取网络设备告警
+
 def get_warn_network_server(request):
     client = get_client_by_request(request)
     kwargs = {
@@ -42,10 +43,6 @@ def get_warn_network_server(request):
     }
     resp = client.zabbix.get_token(**kwargs)
     warn = len(resp.get("result"))
-    warn_in_sql = warn_sum()
-    warn_in_sql.name = 'wangluo'
-    warn_in_sql.warn_count = warn
-    warn_in_sql.save()
     return warn
 #获取服务器告警
 def get_warn_server(request):
@@ -65,10 +62,6 @@ def get_warn_server(request):
     }
     resp = client.zabbix.get_token(**kwargs)
     warn = len(resp.get("result"))
-    warn_in_sql = warn_sum()
-    warn_in_sql.name = 'fuwuqi'
-    warn_in_sql.warn_count = warn
-    warn_in_sql.save()
     return warn
 #获取token
 def get_token(request):
@@ -377,8 +370,52 @@ def get_business_cpu(request):
     }
     resp = client.zabbix.get_token(**kwargs)
     value = resp.get("result")
-    return render_json(value)
+    get_sql_value = yewu_cpu_value()
+    get_sql_value.name='zabbix'
+    get_sql_value.cpu_value=resp.get("result")[0].get("value_avg")
+    get_sql_value.save()
+    return HttpResponse("成功")
 
-
+def get_count(request):
+    client = get_client_by_request(request)
+    kwargs = {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
+        "method": "problem.get",
+        "params": {
+            "output": "extend",
+            "groupids": 15,
+            "filter": {
+                "severity": [3, 4, 5]
+            }
+        }
+    }
+    resp = client.zabbix.get_token(**kwargs)
+    warn = len(resp.get("result"))
+    warn_in_sql = warn_sum()
+    warn_in_sql.name = 'wangluo'
+    warn_in_sql.warn_count = warn
+    warn_in_sql.save()
+    kwargs = {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
+        "method": "problem.get",
+        "params": {
+            "output": "extend",
+            "groupids": 16,
+            "filter": {
+                "severity": [3, 4, 5]
+            }
+        }
+    }
+    resp = client.zabbix.get_token(**kwargs)
+    warn = len(resp.get("result"))
+    warn_in_sql = warn_sum()
+    warn_in_sql.name = 'fuwuqi'
+    warn_in_sql.warn_count = warn
+    warn_in_sql.save()
+    return HttpResponse("成功")
 
 

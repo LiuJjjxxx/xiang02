@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70bec03d-c1bf-4667-ac76-6c61f721a553" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/get_sql/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/default.py" beforeDir="false" afterPath="$PROJECT_DIR$/conf/default.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_sql/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_sql/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_sql/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_sql/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home_application/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_application/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home_application/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_application/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home_application/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_application/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home_application/ceshi.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home_application/ceshi.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/home_application/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home_application/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,25 +22,43 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/home_application/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/get_sql/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="25" column="42" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+              <folding>
+                <element signature="e#695#732#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_sql/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="57" column="16" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
+            <state relative-caret-position="141">
+              <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
               <folding>
-                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#24#72#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/get_sql/urls.py">
+        <entry file="file://$PROJECT_DIR$/templates/home_application/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-              <folding>
-                <element signature="e#695#732#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="319">
+              <caret line="737" column="18" selection-start-line="737" selection-start-column="18" selection-end-line="737" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -57,24 +74,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>业务系统cpu</find>
-      <find>value</find>
-      <find>bussion_tpl</find>
-      <find>yewu_cpu</find>
-      <find>center</find>
-      <find>hostgroup</find>
-      <find>存储空间</find>
-      <find>数据库</find>
-      <find>info</find>
-      <find>业务系统CP</find>
-      <find>get_netwo</find>
-      <find>get_server_disk_key</find>
       <find>get_network_server_key</find>
       <find>get_network_server_hostid</find>
       <find>get_network_server_va</find>
       <find>get_warn_ne</find>
       <find>get_net</find>
-      <find>get_network_server_flow_value</find>
       <find>get_server_va</find>
       <find>mysql</find>
       <find>get_ser</find>
@@ -87,6 +91,19 @@
       <find>get_network_server_flow</find>
       <find>APPS</find>
       <find>sql</find>
+      <find>get_warn_server</find>
+      <find>get_count_network_server</find>
+      <find>get_network_server_value</find>
+      <find>get_network_server_flow_value</find>
+      <find>ge</find>
+      <find>count()</find>
+      <find>get_warn_network_server</find>
+      <find>2000</find>
+      <find>get_count_server</find>
+      <find>60000</find>
+      <find>bus</find>
+      <find>mychar</find>
+      <find>get_server_value</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -100,27 +117,26 @@
         <option value="$PROJECT_DIR$/blueking/component/apis/cc.py" />
         <option value="$PROJECT_DIR$/blueking/component/collections.py" />
         <option value="$PROJECT_DIR$/blueking/component/apis/zabbix.py" />
-        <option value="$PROJECT_DIR$/templates/home_application/ceshi.html" />
         <option value="$USER_HOME$/Desktop/test1(1).py" />
         <option value="$PROJECT_DIR$/static/css/bk.css" />
         <option value="$PROJECT_DIR$/conf/settings_testing.py" />
         <option value="$PROJECT_DIR$/conf/settings_production.py" />
         <option value="$PROJECT_DIR$/templates/home_application/contact.html" />
         <option value="$PROJECT_DIR$/static/css/local.css" />
-        <option value="$PROJECT_DIR$/home_application/models.py" />
         <option value="$PROJECT_DIR$/urls.py" />
         <option value="$PROJECT_DIR$/conf/default.py" />
+        <option value="$PROJECT_DIR$/templates/home_application/ceshi.html" />
         <option value="$PROJECT_DIR$/home_application/urls.py" />
+        <option value="$PROJECT_DIR$/home_application/models.py" />
         <option value="$PROJECT_DIR$/home_application/views.py" />
-        <option value="$PROJECT_DIR$/templates/home_application/home.html" />
-        <option value="$PROJECT_DIR$/get_sql/views.py" />
         <option value="$PROJECT_DIR$/get_sql/urls.py" />
+        <option value="$PROJECT_DIR$/get_sql/views.py" />
+        <option value="$PROJECT_DIR$/templates/home_application/home.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="3" />
-    <option name="y" value="89" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
     <option name="width" value="1628" />
     <option name="height" value="1027" />
   </component>
@@ -137,16 +153,6 @@
             <path>
               <item name="framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="framework" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="conf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="get_sql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="framework" type="b2602c69:ProjectViewProjectNode" />
@@ -245,12 +251,12 @@
       <workItem from="1564557822058" duration="31770000" />
       <workItem from="1564728178389" duration="313000" />
       <workItem from="1564729436399" duration="732000" />
-      <workItem from="1564731157349" duration="147884000" />
+      <workItem from="1564731157349" duration="167002000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184509000" />
+    <option name="totallyTimeSpent" value="203627000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -438,13 +444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/home_application/ceshi.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1306">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/bk.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -513,13 +512,6 @@
     <entry file="file://$PROJECT_DIR$/home_application/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/home_application/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -534,47 +526,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/home_application/home.html">
+    <entry file="file://$PROJECT_DIR$/blueking/component/shortcuts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="507" column="15" lean-forward="true" selection-start-line="507" selection-start-column="15" selection-end-line="507" selection-end-column="15" />
+        <state relative-caret-position="-879">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/home_application/ceshi.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="83" column="36" lean-forward="true" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/home_application/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+        <state relative-caret-position="291">
+          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/home_application/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="23" />
+        <state relative-caret-position="-3920">
+          <caret line="280" column="20" selection-start-line="280" selection-start-column="4" selection-end-line="280" selection-end-column="20" />
           <folding>
-            <element signature="e#695#752#0" expanded="true" />
+            <element signature="e#695#765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home_application/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/get_sql/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="25" column="42" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+          <folding>
+            <element signature="e#695#732#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/get_sql/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="57" column="16" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
+        <state relative-caret-position="141">
+          <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#24#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/get_sql/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/home_application/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-          <folding>
-            <element signature="e#695#732#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="319">
+          <caret line="737" column="18" selection-start-line="737" selection-start-column="18" selection-end-line="737" selection-end-column="18" />
         </state>
       </provider>
     </entry>

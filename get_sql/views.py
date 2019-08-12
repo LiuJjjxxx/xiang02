@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,HttpResponse
 from common.mymako import render_json
-from  home_application.models import warn_sum,server_value,network_server_cpu_value,network_server_flow_value
+from  home_application.models import warn_sum,server_value,network_server_cpu_value,network_server_flow_value,yewu_cpu_value
 
 # Create your views here.
 
@@ -69,4 +69,16 @@ def get_netwokr_server_cpu_in_sql(request):
         value['value'] = server_value_sum[i].get("value")
         data.insert(i, value)
         value = {}
+    return render_json(data)
+def get_yewu_value(request):
+    cpu_value = yewu_cpu_value.objects.filter(name='zabbix').order_by('-date')[:5].values('date', 'cpu_value')
+    sum = len(cpu_value)
+    data = {}
+    yewu_count = []
+    timeer = []
+    for i in range(sum):
+        yewu_count.insert(i, cpu_value[i].get("cpu_value"))
+        timeer.insert(i, cpu_value[i].get("date").strftime('%d/%m %H:%M'))
+    data["fuwuqi"] = yewu_count
+    data["date"] = timeer
     return render_json(data)

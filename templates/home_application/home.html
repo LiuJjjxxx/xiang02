@@ -135,27 +135,7 @@
             <div class="container-fluid mb0 ">
                 <div class="row">
                      <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="yewu_cpu">
-                            <div class="king-block-header ">
-                                <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>业务系统CPU</h3>
-                            </div>
-                            <div class="ranger-wrapper">
-                                <table class="mb0 pr15 ranger-header-box color">
-                                    <thead class="font">
-                                    </thead>
-                                </table>
-                                <div style="height:203px; overflow: auto;" class="ranger-box">
-                                    <table class="font mb0" style="width: 100%;max-width: 100%">
-                                        <tbody id="">
-                                        <tr>
-                                            <td>暂无数据</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        <canvas id="myChart_yewu"></canvas>
                     </div>
                     <!-- 设置面板Start -->
                         <template id="bussion_header_tpl">
@@ -375,72 +355,36 @@
 </body>
 </html>
 <script>
-    function renderTpl(str, cfg) {
-            var re = /(#(.+?)#)/g;
-
-            return str.replace(re, function() {
-                var val = cfg[arguments[2]]+'';
-                if(typeof val == 'undefined') {
-                    val = '';
-                }
-                else if(typeof val == 0 ){
-                    val = '暂无数据'
-                }
-                return val;
-            });
-        }
-
-        function initList2(conf){
-            // 异步请求后台数据
-            $.ajax({
-                url: conf.url,
-                type: 'GET',
-                dataType: conf.dataType,
-                success: function(res){
-                //获取数据成功
-                        var _html = ' ';
-                        var list = res.message
-                        var tpl = $('#bussion_tpl').html();
-                        var headerTpl =  $('#bussion_header_tpl').html();
-                        if (list.length == 0){
-                            _html = $('#list2_nodata_tpl').html();
-                        }else{
-                            for (var i=0,len=list.length; i < len; i++){
-                                var item = list[i];
-                                _html += renderTpl(tpl, item)
-                            }
-                        }
-                        $(conf.container).find('.ranger-box tbody').html(_html);
-                        $(conf.container).find('.ranger-header-box thead').html(renderTpl(headerTpl));
-                }
-            });
-        }
-    initList2({
-            url: '${SITE_URL}get_business_cpu/',
-            dataType: 'json',
-            container: '#yewu_cpu'
-        });
+     function count() {
+         $.get('${SITE_URL}get_count/')
+         $.get('${SITE_URL}get_network_server_value/')
+         $.get('${SITE_URL}get_server_value/')
+         $.get('${SITE_URL}get_network_server_flow_value/')
+         $.get('${SITE_URL}get_business_cpu/')
+     }
+        setInterval("count()",60000)
 </script>
 <script>
-    $.get('${SITE_URL}get_count_server/',function (data) {
-        if(data.result){
-            var message = data.result;
-            let [normal_server,abnormal_server,count_server] = [0,0,Object.keys(message).length]
-            for(var i in message){
-                if(message[i].status == "0")
-                    normal_server++
-                else
-                    abnormal_server++
-            $("#count_server").html(count_server+"台")
-            $("#normal_server").html("正常:"+normal_server)
-            $("#abnormal_server").html("故障:"+abnormal_server)
-            $("#warn_sever").html("告警:"+data.warn)
-}
-        }
-        else {
-            alert("获取失败")
-        }
-    },'json')
+
+        $.get('${SITE_URL}get_count_server/', function (data) {
+            if (data.result) {
+                var message = data.result;
+                let [normal_server, abnormal_server, count_server] = [0, 0, Object.keys(message).length]
+                for (var i in message) {
+                    if (message[i].status == "0")
+                        normal_server++
+                    else
+                        abnormal_server++
+                    $("#count_server").html(count_server + "台")
+                    $("#normal_server").html("正常:" + normal_server)
+                    $("#abnormal_server").html("故障:" + abnormal_server)
+                    $("#warn_sever").html("告警:" + data.warn)
+                }
+            } else {
+                alert("获取失败")
+            }
+        }, 'json')
+
 </script>
 <script>
     $.get('${SITE_URL}get_count_network_server/',function (data) {
@@ -463,9 +407,6 @@
     }
 },'json')
 </script>
-
-
-
 <script>
     function renderTpl(str, cfg) {
             var re = /(#(.+?)#)/g;
@@ -510,6 +451,32 @@
             dataType: 'json',
             container: '#wangluo_cpu'
         });
+setInterval(function initList2(conf){
+            // 异步请求后台数据
+            $.ajax({
+                url: '${SITE_URL}get_sql/get_netwokr_server_cpu_in_sql/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(res){
+                //获取数据成功
+                        var newres =  res.message
+                        var _html = ' ';
+                        var list = res.message;
+                        var tpl = $('#cpu_tpl').html();
+                        var headerTpl =  $('#list2_header_tpl').html();
+                        if (list.length == 0){
+                            _html = $('#list2_nodata_tpl').html();
+                        }else{
+                            for (var i=0,len=list.length; i < len; i++){
+                                var item = list[i];
+                                _html += renderTpl(tpl, item)
+                            }
+                        }
+                        $("#wangluo_cpu").find('.ranger-box tbody').html(_html);
+                        $("#wangluo_cpu").find('.ranger-header-box thead').html(renderTpl(headerTpl));
+                }
+            });
+        },60000)
 </script>
 <script>
     function renderTpl(str, cfg) {
@@ -558,7 +525,34 @@
             url: '${SITE_URL}get_sql/get_server_value_in_sql/',
             dataType: 'json',
             container: '#disk_sum'
-        });
+        })
+    setInterval(function initList2(conf){
+            // 异步请求后台数据
+            $.ajax({
+                url: '${SITE_URL}get_sql/get_server_value_in_sql/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(res){
+                //获取数据成功
+
+                        var _html = ' ';
+                        var list = res.message;
+
+                        var tpl = $('#server_tpl').html();
+                        var headerTpl =  $('#server_header_tpl').html();
+                        if (list.length == 0){
+                            _html = $('#list2_nodata_tpl').html();
+                        }else{
+                            for (var i=0,len=list.length; i < len; i++){
+                                var item = list[i];
+                                _html += renderTpl(tpl, item)
+                            }
+                        }
+                        $('#disk_sum').find('.ranger-box tbody').html(_html);
+                        $('#disk_sum').find('.ranger-header-box thead').html(renderTpl(headerTpl));
+                }
+            });
+        },60000)
 </script>
 <script>
     function renderTpl(str, cfg) {
@@ -611,9 +605,40 @@
             dataType: 'json',
             container: '#flow_sum'
         });
+    setInterval(function initList2(conf){
+            // 异步请求后台数据
+            $.ajax({
+                url: '${SITE_URL}get_sql/get_netwokr_server_flow_in_sql',
+                type: 'GET',
+                dataType: 'json',
+                success: function(res){
+                //获取数据成功
+                        var _html = ' ';
+                        var list = res.message;
+                        for(var i=0,len=list.length; i < len; i++){
+                            var newvalue = list[i].value/8192;
+                            newvalue = newvalue.toFixed(2);
+                            list[i].value = newvalue;
+                        }
+                        var tpl = $('#flow_tpl').html();
+                        var headerTpl =  $('#server_flow_header_tpl').html();
+                        if (list.length == 0){
+                            _html = $('#list2_nodata_tpl').html();
+                        }else{
+                            for (var i=0,len=list.length; i < len; i++){
+                                var item = list[i];
+                                _html += renderTpl(tpl, item)
+                            }
+                        }
+                        $('#flow_sum').find('.ranger-box tbody').html(_html);
+                        $('#flow_sum').find('.ranger-header-box thead').html(renderTpl(headerTpl));
+                }
+            });
+        },60000)
 </script>
 
 <script>
+
         function createLine(conf) {
             var data={
             //折线图需要为每个数据点设置一标签。这是显示在X轴上。
@@ -645,12 +670,11 @@
                 title: {
                     text : '告警趋势图',
                     display: true,
-                }
+                },
+                events: ['click']
             }
         });
         }
-
-
     function initKendoLineChart(conf){
         // 异步请求后台数据
         $.ajax({
@@ -664,12 +688,92 @@
                     });
             }
         })
-    }
-    $(function(){
+}
         initKendoLineChart({
             url: '${SITE_URL}get_sql/get_warn_sum_count/',
             dataType: 'json',
         });
-    });
+    setInterval(function initKendoLineChart(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: '${SITE_URL}get_sql/get_warn_sum_count/',
+            type: 'GET',
+            dataType: 'json',
+            success: function(res){
+                    var data = res
+                    createLine({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+    },60000)
+
 </script>
+<script>
+
+        function createLine_yewu(conf) {
+            var data={
+            //折线图需要为每个数据点设置一标签。这是显示在X轴上。
+            labels: conf.data.date.reverse(),
+            //数据集（y轴数据范围随数据集合中的data中的最大或最小数据而动态改变的）
+            datasets: [{
+                label: 'zabbix',
+                backgroundColor: "rgba(243,183,96,0)", //背景填充色
+                borderColor: "#f3342d", //路径颜色
+                pointBackgroundColor: "#eb50eb", //数据点颜色
+                pointBorderColor: "#fff", //数据点边框颜色
+                data: conf.data.fuwuqi.reverse() //对应的值
+            },
+            ]
+        };
+
+        var ctx = document.getElementById("myChart_yewu").getContext('2d');
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                title: {
+                    text : '业务系统CPU趋势图',
+                    display: true,
+                },
+            }
+        });
+        }
+    function initKendoLineChart(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function(res){
+                    var data = res
+                    createLine_yewu({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+}
+        initKendoLineChart({
+            url: '${SITE_URL}get_sql/get_yewu_value/',
+            dataType: 'json',
+        });
+    setInterval(function initKendoLineChart(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: '${SITE_URL}get_sql/get_yewu_value/',
+            type: 'GET',
+            dataType: 'json',
+            success: function(res){
+                    var data = res
+                    createLine({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+    },60000)
+
+</script>
+
+
+
 

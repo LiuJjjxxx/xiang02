@@ -22,4 +22,7 @@ urlpatterns = patterns('get_sql.views',
     (r'^get_netwokr_server_flow_in_sql/$', 'get_netwokr_server_flow_in_sql'),
         #网络设备CPU
     (r'^get_netwokr_server_cpu_in_sql/$', 'get_netwokr_server_cpu_in_sql'),
-)
+        #业务系统CPU
+    (r'^get_yewu_value/$', 'get_yewu_value'),
+
+    )

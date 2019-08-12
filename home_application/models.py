@@ -34,3 +34,8 @@ class network_server_cpu_value(models.Model):
     ip  = models.CharField(max_length=64)
     value = models.CharField(max_length=64)
     date = models.DateTimeField(auto_now_add=True)
+
+class yewu_cpu_value(models.Model):
+    name = models.CharField(max_length=64)
+    cpu_value = models.CharField(max_length=20)
+    date = models.DateTimeField(auto_now_add=True)
