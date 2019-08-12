@@ -88,10 +88,10 @@
     <div class="king-widget9-content">
         <div class="clearfix">
             <div class="king-text-wrap">
-                <h2>10个</h2>
+                <h2>1个</h2>
                 <div class="text-wrap">
                     <div class="text-wrap-left">
-                        <p>正常：10</p>
+                        <p>正常：1</p>
                         <p>告警：0</p>
                         <p>故障：0</p>
                     </div>
@@ -710,7 +710,6 @@ setInterval(function initList2(conf){
 
 </script>
 <script>
-
         function createLine_yewu(conf) {
             var data={
             //折线图需要为每个数据点设置一标签。这是显示在X轴上。
@@ -727,8 +726,8 @@ setInterval(function initList2(conf){
             ]
         };
 
-        var ctx = document.getElementById("myChart_yewu").getContext('2d');
-        var myLineChart = new Chart(ctx, {
+        var ctx1 = document.getElementById("myChart_yewu").getContext('2d');
+        var myLineChart = new Chart(ctx1, {
             type: 'line',
             data: data,
             options: {
@@ -739,7 +738,7 @@ setInterval(function initList2(conf){
             }
         });
         }
-    function initKendoLineChart(conf){
+    function initKendoLineChart_yewu(conf){
         // 异步请求后台数据
         $.ajax({
             url: conf.url,
@@ -753,11 +752,11 @@ setInterval(function initList2(conf){
             }
         })
 }
-        initKendoLineChart({
+        initKendoLineChart_yewu({
             url: '${SITE_URL}get_sql/get_yewu_value/',
             dataType: 'json',
         });
-    setInterval(function initKendoLineChart(conf){
+    setInterval(function initKendoLineChart_yewu(conf){
         // 异步请求后台数据
         $.ajax({
             url: '${SITE_URL}get_sql/get_yewu_value/',
@@ -765,13 +764,74 @@ setInterval(function initList2(conf){
             dataType: 'json',
             success: function(res){
                     var data = res
-                    createLine({
+                    createLine_yewu({
                         data: data, // 图表数据
                     });
             }
         })
     },60000)
+</script>
+<script>
+        function createLine_yewu(conf) {
+            var data={
+            //折线图需要为每个数据点设置一标签。这是显示在X轴上。
+            labels: conf.data.date.reverse(),
+            //数据集（y轴数据范围随数据集合中的data中的最大或最小数据而动态改变的）
+            datasets: [{
+                label: 'zabbix',
+                backgroundColor: "rgba(243,183,96,0)", //背景填充色
+                borderColor: "#f3342d", //路径颜色
+                pointBackgroundColor: "#eb50eb", //数据点颜色
+                pointBorderColor: "#fff", //数据点边框颜色
+                data: conf.data.fuwuqi.reverse() //对应的值
+            },
+            ]
+        };
 
+        var ctx1 = document.getElementById("myChart_yewu").getContext('2d');
+        var myLineChart = new Chart(ctx1, {
+            type: 'line',
+            data: data,
+            options: {
+                title: {
+                    text : '业务系统CPU趋势图',
+                    display: true,
+                },
+            }
+        });
+        }
+    function initKendoLineChart_yewu(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function(res){
+                    var data = res
+                    createLine_yewu({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+}
+        initKendoLineChart_yewu({
+            url: '${SITE_URL}get_sql/get_yewu_value/',
+            dataType: 'json',
+        });
+    setInterval(function initKendoLineChart_yewu(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: '${SITE_URL}get_sql/get_yewu_value/',
+            type: 'GET',
+            dataType: 'json',
+            success: function(res){
+                    var data = res
+                    createLine_yewu({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+    },60000)
 </script>
 
 
