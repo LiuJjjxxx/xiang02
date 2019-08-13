@@ -137,76 +137,12 @@
                      <div class="col-md-4">
                         <canvas id="myChart_yewu"></canvas>
                     </div>
-                    <!-- 设置面板Start -->
-                        <template id="bussion_header_tpl">
-                            <tr>
-                                <th class="p15 font" style="width: 20%" >排行</th>
-                                <th class=" font" style="width: 40%">系统</th>
-                                <th class=" font" style="width: 40%">利用率</th>
-                            </tr>
-                        </template>
-                        <template id="bussion_tpl" style="background: rgba(0,0,0,0)">
-                            <tr>
-                                <td class="p15 font" >1</td>
-                                <td class="p15 font" >zabbix</td>
-                                <td class="p15 font" >#value_avg#%</td>
-                            </tr>
-                        </template>
                     <div class="col-md-4">
                         <canvas id="myChart"></canvas>
                     </div>
                     <div class="col-md-4">
-                        <div class="king-block king-block-themed bk-ranger-box mb10" id="list_1564555805283">
-                            <div class="king-block-header ">
-                                <h3 class="king-block-title pt10 pb10">
-                                    <span class="fa fa-bar-chart mr5"></span>数据库CPU</h3>
-                            </div>
-                            <div class="ranger-wrapper">
-                                <table class="color mb0 pr15 ranger-header-box">
-                                    <thead class="font">
-                                        <tr>
-                                            <th class="p15 font" style="width: 20%" >排行</th>
-                                            <th class=" font" style="width: 40%">数据库</th>
-                                            <th class=" font" style="width: 40%">利用率</th>
-                                         </tr>
-                                    </thead>
-                                </table>
-                                <div style="height:203px; overflow: auto;" class="ranger-box">
-                                    <table class="font mb0" style="width: 100%;max-width: 100%">
-                                        <tbody id="">
-                                            <tr>
-                                                <td class="p15 font" style="width: 20%">1</td>
-                                                <td class="font"style="width: 40%">Mysql</td>
-                                                <td class="font"style="width: 40%">2.533%</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        <canvas id="myChart_shujuku"></canvas>
                     </div>
-                    <!-- 设置面板Start -->
-                        <template id="server_header_tpl">
-                            <tr>
-                                <th class="p15">排名</th>
-                                <th >服务器IP</th>
-                                <th>磁盘剩余大小</th>
-                            </tr>
-                        </template>
-                        <template id="server_tpl" style="background: rgba(0,0,0,0)">
-                            <tr>
-                                <td class="p15" style="width:20%;">#index#</td>
-                                <td style="width:40%;">#ip#</td>
-                                <td>#value#G</td>
-                            </tr>
-                        </template>
-                        <template id="list2_nodata_tpl">
-                            <tr>
-                                <td colspan="3">
-                                    <p class="bk-nodata-tip">暂时没有数据</p>
-                                </td>
-                            </tr>
-                        </template>
                 </div>
             </div>
         </div>
@@ -671,7 +607,6 @@ setInterval(function initList2(conf){
                     text : '告警趋势图',
                     display: true,
                 },
-                events: ['click']
             }
         });
         }
@@ -832,6 +767,54 @@ setInterval(function initList2(conf){
             }
         })
     },60000)
+</script>
+<script>
+        function createLine_shujuku(conf) {
+            var data={
+            //折线图需要为每个数据点设置一标签。这是显示在X轴上。
+            labels: [10.1,10.2,10.3,10.4,10.5],
+            //数据集（y轴数据范围随数据集合中的data中的最大或最小数据而动态改变的）
+            datasets: [{
+                label: 'zabbix',
+                backgroundColor: "rgba(243,183,96,0)", //背景填充色
+                borderColor: "#4A9BFF", //路径颜色
+                pointBackgroundColor: "#5512eb", //数据点颜色
+                pointBorderColor: "#fff", //数据点边框颜色
+                data: [8,7,5,6,3] //对应的值
+            },
+            ]
+        };
+
+        var ctx2 = document.getElementById("myChart_shujuku").getContext('2d');
+        var myLineChart = new Chart(ctx2, {
+            type: 'line',
+            data: data,
+            options: {
+                title: {
+                    text : '服务器CPU趋势图',
+                    display: true,
+                },
+            }
+        });
+        }
+    function initKendoLineChart_shujuku(conf){
+        // 异步请求后台数据
+        $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function(res){
+                    var data = res
+                    createLine_shujuku({
+                        data: data, // 图表数据
+                    });
+            }
+        })
+}
+        initKendoLineChart_shujuku({
+            url: '${SITE_URL}get_sql/get_yewu_value/',
+            dataType: 'json',
+        });
 </script>
 
 

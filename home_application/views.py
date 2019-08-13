@@ -98,7 +98,7 @@ def get_network_server_hostid(request,groupids):
     resp = client.zabbix.get_token(**kwargs)
     result = resp.get("result")
     sum = len(result)
-    for i in range(sum):
+    for i in range(0,sum<10,1):
         data.insert(i,result[i].get("interfaces")[0])
 
     return data
