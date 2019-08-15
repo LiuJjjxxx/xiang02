@@ -98,7 +98,7 @@ def get_network_server_hostid(request,groupids):
     resp = client.zabbix.get_token(**kwargs)
     result = resp.get("result")
     sum = len(result)
-    for i in range(0,sum<10,1):
+    for i in range(sum):
         data.insert(i,result[i].get("interfaces")[0])
 
     return data
@@ -303,14 +303,19 @@ def get_server_value(request):
             }
             resp = client.zabbix.get_token(**kwargs)
             result = resp.get("result")
-            value += int(result[0].get("value"))
-        value =format(float(value)/1073741824,'.2f')
+            if len(result) == 0:
+                value1 = {'value':'0'}
+                result.insert(0,value)
+            else:
+                value += int(result[0].get("value"))
+        value = format(float(value) / 1073741824, '.2f')
         data[i]['value'] = value
         value = 0
     data.sort(reverse=False, key=lambda x: x["value"])
     for i in range(sum):
         data[i]["index"] = i + 1
-        server_value_list_to_insert.append(server_value(index=data[i].get("index"),value=data[i].get("value"),ip=data[i].get("ip")))
+        server_value_list_to_insert.append(
+            server_value(index=data[i].get("index"), value=data[i].get("value"), ip=data[i].get("ip")))
     server_value.objects.bulk_create(server_value_list_to_insert)
     return render_json(data)
 
