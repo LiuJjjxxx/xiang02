@@ -423,4 +423,3 @@ def get_count(request):
     warn_in_sql.save()
     return HttpResponse("成功")
 
-
