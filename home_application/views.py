@@ -201,9 +201,6 @@ def get_count_server(request):
     warn = get_warn_server(request)
     client = get_client_by_request(request)
     kwargs = {
-        "bk_app_code": "xiang02",
-        "bk_app_secret": "c64c5a65-e369-498d-8a8e-9cdcfd3b3ac4",
-        "bk_username": "admin",
         "jsonrpc": "2.0",
         "id": 2,
         "auth": "68a7a33cf513f1a77a3d0f87b76ac8a8",
